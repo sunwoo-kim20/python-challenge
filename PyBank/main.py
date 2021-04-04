@@ -12,6 +12,7 @@ total_header = "Total:"
 change_header = "Average Change:"
 greatest_inc_header = "Greatest Increase in Profits:"
 greatest_dec_header = "Greatest Decrease in Profits:"
+nl = "\n"
 
 # Dependencies
 
@@ -75,13 +76,24 @@ with open(csvpath) as csvfile:
             GD_month = dates[i]
 
     # Print analysis to the terminal
-
+    month_result = f"{months_header} {total_months}"
+    total_result = f"{total_header} ${net_total}"
+    change_result = f"{change_header} ${avg_change}"
+    increase_result = f"{greatest_inc_header} {GI_month} (${greatest_increase})"
+    decrease_result = f"{greatest_dec_header} {GD_month} (${greatest_decrease})"
     print(title_header)
     print(line_header)
-    print(f"{months_header} {total_months}")
-    print(f"{total_header} ${net_total}")
-    print(f"{change_header} ${avg_change}")
-    print(f"{greatest_inc_header} {GI_month} (${greatest_increase})")
-    print(f"{greatest_dec_header} {GD_month} (${greatest_decrease})")
+    print(month_result)
+    print(total_result)
+    print(change_result)
+    print(increase_result)
+    print(decrease_result)
 
     # Print analysis to text file
+
+    analysis_file = open("analysis/pybank-analysis.txt","w")
+    lines = [title_header + nl, line_header + nl, month_result + nl,
+             total_result + nl, change_result + nl, increase_result + nl,
+             decrease_result + nl]
+    analysis_file.writelines(lines)
+    analysis_file.close()

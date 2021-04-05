@@ -66,3 +66,14 @@ with open(csvpath) as csvfile:
     vote_percentages = []
     for count in vote_counts:
         vote_percentages.append(f"{round((count/total_votes)*percent_multiplier, 2)}%")
+
+    # Find the winner
+    winner_index = 0
+    winner = candidates[winner_index]
+
+    for i in range(len(vote_counts)):
+        if vote_counts[i] > vote_counts[winner_index]:
+            winner = vote_counts[i]
+            winner_index = i
+    print(winner)
+    # Print analysis to terminal

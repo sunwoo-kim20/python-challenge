@@ -92,8 +92,14 @@ with open(csvpath) as csvfile:
 
     # Print to text file
 
-    analysis_file = open("analysis/pybank-analysis.txt","w")
-    lines = [title_header + nl, line_header + nl, month_result + nl,
-             total_result + nl, change_result + nl, increase_result + nl,                 decrease_result + nl]
-    analysis_file.writelines(lines)
+    analysis_file = open("analysis/pypoll-analysis.txt","w")
+    analysis_file.write(title_header + nl)
+    analysis_file.write(line_header + nl)
+    analysis_file.write(total_result + nl)
+    analysis_file.write(line_header + nl)
+    for i in range(candidates_num):
+        analysis_file.write(f"{candidates[i]}: {vote_percentages[i]} ({vote_counts[i]})" + nl)
+    analysis_file.write(line_header + nl)
+    analysis_file.write(winner_result + nl)
+    analysis_file.write(line_header + nl)
     analysis_file.close()

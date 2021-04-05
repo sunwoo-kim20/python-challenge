@@ -13,12 +13,7 @@ li_header = "Li:"
 tooley_header = "O'Tooley:"
 winner_header = "Winner:"
 nl = "\n"
-
-# Candidates
-KHAN = "Khan"
-CORREY = "Correy"
-LI = "Li"
-OTOOLEY = "O'Tooley"
+candidate_vote_index = 2
 
 # Dependencies
 import os
@@ -36,4 +31,31 @@ with open(csvpath) as csvfile:
     # Skip header
     next(csvreader)
 
-    # Organize columns into lists
+    # Organize candidate column into a list
+
+    votes = []
+    for row in csvreader:
+        votes.append(row[candidate_vote_index])
+
+    # Counting total Votes
+
+    total_votes = len(votes)
+
+    # Identifying candidates who received votes
+    candidates = []
+    for vote in votes:
+        if not (vote in candidates):
+            candidates.append(vote)
+
+    # Counting total votes for each candidate
+    vote_counts = [0, 0, 0, 0]
+
+    #for vote in votes:
+    #    if vote == KHAN:
+    #        khan_count += 1
+    #    elif vote == CORREY:
+    #        correy_count += 1
+    #    elif vote == LI:
+    #        li_count += 1
+    #    elif vote == OTOOLEY:
+    #        otooley_count += 1

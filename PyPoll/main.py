@@ -7,10 +7,6 @@
 line_header = "------------------------"
 title_header = "Election Results"
 total_header = "Total Votes:"
-khan_header = "Khan:"
-correy_header = "Correy:"
-li_header = "Li:"
-tooley_header = "O'Tooley:"
 winner_header = "Winner:"
 nl = "\n"
 candidate_vote_index = 2
@@ -47,9 +43,9 @@ with open(csvpath) as csvfile:
     for vote in votes:
         if not (vote in candidates):
             candidates.append(vote)
-
+    candidates_num = len(candidates)
     # Counting total votes for each candidate and hold values in a list
-    vote_counts = [0, 0, 0, 0]
+    vote_counts = [0]*candidates_num
 
     for vote in votes:
         if vote == candidates[0]:
@@ -71,9 +67,33 @@ with open(csvpath) as csvfile:
     winner_index = 0
     winner = candidates[winner_index]
 
-    for i in range(len(vote_counts)):
+    for i in range(candidates_num):
         if vote_counts[i] > vote_counts[winner_index]:
             winner = vote_counts[i]
             winner_index = i
     print(winner)
-    # Print analysis to terminal
+
+    # Print analysis
+
+    total_result = f"{total_header} {total_votes}"
+    winner_result = f"{winner_header} {winner}"
+
+    # Print to terminal
+
+    print(title_header)
+    print(line_header)
+    print(total_result)
+    print(line_header)
+    for i in range(candidates_num):
+        print(f"{candidates[i]}: {vote_percentages[i]} ({vote_counts[i]})")
+    print(line_header)
+    print(winner_result)
+    print(line_header)
+
+    # Print to text file
+
+    analysis_file = open("analysis/pybank-analysis.txt","w")
+    lines = [title_header + nl, line_header + nl, month_result + nl,
+             total_result + nl, change_result + nl, increase_result + nl,                 decrease_result + nl]
+    analysis_file.writelines(lines)
+    analysis_file.close()

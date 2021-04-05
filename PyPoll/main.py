@@ -14,6 +14,7 @@ tooley_header = "O'Tooley:"
 winner_header = "Winner:"
 nl = "\n"
 candidate_vote_index = 2
+percent_multiplier = 100
 
 # Dependencies
 import os
@@ -47,15 +48,21 @@ with open(csvpath) as csvfile:
         if not (vote in candidates):
             candidates.append(vote)
 
-    # Counting total votes for each candidate
+    # Counting total votes for each candidate and hold values in a list
     vote_counts = [0, 0, 0, 0]
 
-    #for vote in votes:
-    #    if vote == KHAN:
-    #        khan_count += 1
-    #    elif vote == CORREY:
-    #        correy_count += 1
-    #    elif vote == LI:
-    #        li_count += 1
-    #    elif vote == OTOOLEY:
-    #        otooley_count += 1
+    for vote in votes:
+        if vote == candidates[0]:
+            vote_counts[0] += 1
+        elif vote == candidates[1]:
+            vote_counts[1] += 1
+        elif vote == candidates[2]:
+            vote_counts[2] += 1
+        elif vote == candidates[3]:
+            vote_counts[3] += 1
+
+    # Calculating percentage of votes for each candidate and storing in list
+
+    vote_percentages = []
+    for count in vote_counts:
+        vote_percentages.append(f"{round((count/total_votes)*percent_multiplier, 2)}%")
